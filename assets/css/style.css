@@ -2,3 +2,7 @@
   background-color: blue; /* For browsers that do not support gradients */
   background-image: linear-gradient(to right, lightblue, darkblue);
 }
+
+.w-70 {
+  width: 70% !important;
+}
