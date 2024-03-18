@@ -1,5 +1,72 @@
 function updateData() {
-  alert(selectedCity);
+  var today = new Date();
+  date = today.toLocaleDateString();
+  var city = currentWeatherData.name;
+  var weatherImage = currentWeatherData.weather[0].icon;
+  var currentTemp = currentWeatherData.main.temp;
+  var currentWind = currentWeatherData.wind.speed;
+  var currentHumidity = currentWeatherData.main.humidity;
+  var updateIndex = -1;
+
+  for (var i = 0; i < weatherResult.length; i++) {
+    if (weatherResult[i].city == selectedCity) {
+      updateIndex = i;
+    }
+  }
+
+  var forecastWeatherImage;
+  var forecastTemp;
+  var forecastWind;
+  var forecastHumidity;
+  var forecastImg;
+
+  console.log(weatherResult);
+
+  var idx = 0;
+  var msPerDay = 24 * 60 * 60 * 1000;
+  var day = 1;
+  var nextDay = today;
+
+  while (idx < 40) {
+    nextDay = new Date(nextDay.getTime() + day * msPerDay);
+    idx += 8;
+    validIdx = idx;
+    if (idx == 40) {
+      validIdx = idx - 1;
+    }
+    forecastImg = forecastWeatherData.list[validIdx].weather[0].icon;
+    forecastTemp = forecastWeatherData.list[validIdx].main.temp;
+    forecastWind = forecastWeatherData.list[validIdx].wind.speed;
+    forecastHumidity = forecastWeatherData.list[validIdx].main.humidity;
+    forecastResult.push({
+      date: nextDay.toLocaleDateString(),
+      img: forecastImg,
+      temp: forecastTemp,
+      windspeed: forecastWind,
+      humidity: forecastHumidity,
+    });
+  }
+
+  for (var i = 0; i < forecastResult.length; i++) {
+    weatherResult[updateIndex].forecast[i].date = forecast[i].date;
+    weatherResult[updateIndex].forecast[i].img = forecast[i].img;
+    weatherResult[updateIndex].forecast[i].temp = forecast[i].temp;
+    weatherResult[updateIndex].forecast[i].windspeed = forecast[i].windspeed;
+    weatherResult[updateIndex].forecast[i].humidity = forecast[i].humidity;
+  }
+
+  weatherResult[updateIndex].longitude = longitude;
+  weatherResult[updateIndex].latitude = latitude;
+  weatherResult[updateIndex].city = city;
+  weatherResult[updateIndex].date = date;
+  weatherResult[updateIndex].weatherImage = weatherImage;
+  weatherResult[updateIndex].currentTemp = currentTemp;
+  weatherResult[updateIndex].currentWind = currentWind;
+  weatherResult[updateIndex].currentHumidity = currentHumidity;
+
+  forecastResult = [];
+
+  console.log(weatherResult);
 }
 
 function processData() {
@@ -90,6 +157,7 @@ async function getForecastWeather(latitude, longitude) {
   populateCurrentWeather(index);
   populateForecastWeather(index);
   bProcessing = false;
+  bUpdate = false;
 }
 
 function populateForecastWeather(index) {
