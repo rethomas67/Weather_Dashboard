@@ -45,30 +45,9 @@
           <div class="w-75 border-2 border-bottom border-dark"></div>
         </div>
 
+        <!--Placeholder for the city history-->
         <div class="cities row mb-3">
-          <!--Set the button to the Bootstrap primary color, rounded borders and to fill the div
-          <div
-            class="w-75 mb-3 btn-group d-flex text-center text-light rounded-top rounded-bottom"
-            role="group"
-          >
-            <button
-              class="city_item text-dark btn btn-secondary btn-lg btn-block city_item fw-bold"
-            >
-              Atlanta
-            </button>
-          </div>
-
-          <div
-            class="w-75 btn-group d-flex text-center text-light rounded-top rounded-bottom"
-            role="group"
-          >
-            <button
-              class="city_item text-dark btn btn-secondary btn-lg btn-block city_item fw-bold"
-            >
-              Seattle
-            </button>
-          </div>
-          -->
+          <!--Set the button to the Bootstrap primary color, rounded borders and to fill the div-->
         </div>
       </div>
       <!--set the font weight and size for the text elements of the current forecast with the
@@ -76,64 +55,94 @@
     -->
       <div class="w-70 text-left">
         <div class="mb-3 p-5 border border-2 border-dark">
-            <p>
-                <span class="current_city fs-4 fw-bold">Atlanta</span>            
-                <img  style="height: 70px;width: 70px;"
+            <p class="">
+                <span class="current_city fs-4 fw-bold  align-middle"></span>            
+                <img class="img_city" 
                     id="wicon" 
-                    src="https://openweathermap.org/img/wn/04d@4x.png"
+                    src=""
                     alt="weather icon">
                 </img>            
             </p>
         
-        <p class="current_temperature fs-5">80</p>
-        <p class="current_windspeed fs-5">8</p>
-        <p class="current_humidity fs-5">44</p>
+        <p class="current_temperature fs-5"></p>
+        <p class="current_windspeed fs-5"></p>
+        <p class="current_humidity fs-5"></p>
         </div>
 
+        <div class="forecast_title mb-3 text-left text-dark">
+            <p class="fs-4 fw-bold">5-Day Forecast:</p>
+        </div>
+        
         <div class="forecasts d-flex flex-row justify-content-between">
-            <div class="card col-2 mr-2">
-              <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="card-link">Card link</a>
-                  <a href="#" class="card-link">Another link</a>
+            
+            <div class="forecast1 card col-2 mr-2">
+              <div class="card-body bg-dark">
+                  <h5 class="forecast_date card-title text-light">9/15/2022</h5>
+                  <img class="img_city" 
+                    id="wicon" 
+                    src=""
+                    alt="weather icon">
+                  </img>  
+                  <p class="forecast_temp card-text text-light">Temp: 63</p>
+                  <p class="forecast_wind card-text text-light">Wind: 3</p>
+                  <p class="forecast_humidity card-text text-light">Humidity: 63</p>
+                  
                 </div>
             </div>  
-            <div class="card col-2 mr-2">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
+            <div class="forecast2 card col-2 mr-2">
+                <div class="card-body bg-dark">
+                  <h5 class="forecast_date card-title text-light">9/15/2022</h5>
+                  <img class="img_city" 
+                    id="wicon" 
+                    src=""
+                    alt="weather icon">
+                  </img>  
+                  <p class="forecast_temp card-text text-light">Temp: 63</p>
+                  <p class="forecast_wind card-text text-light">Wind: 3</p>
+                  <p class="forecast_humidity card-text text-light">Humidity: 63</p>
+                    
                   </div>
               </div>  
-              <div class="card col-2">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
+              <div class="forecast3 card col-2 mr-2">
+                <div class="card-body bg-dark">
+                    <h5 class="forecast_date card-title text-light">9/15/2022</h5>
+                    <img class="img_city" 
+                      id="wicon" 
+                      src=""
+                      alt="weather icon">
+                    </img>  
+                    <p class="forecast_temp card-text text-light">Temp: 63</p>
+                    <p class="forecast_wind card-text text-light">Wind: 3</p>
+                    <p class="forecast_humidity card-text text-light">Humidity: 63</p>
+                    
                   </div>
               </div>  
-              <div class="card col-2">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
+              <div class="forecast4 card col-2">
+                <div class="card-body bg-dark">
+                    <h5 class="forecast_date card-title text-light">9/15/2022</h5>
+                    <img class="img_city" 
+                      id="wicon" 
+                      src=""
+                      alt="weather icon">
+                    </img>  
+                    <p class="forecast_temp card-text text-light">Temp: 63</p>
+                    <p class="forecast_wind card-text text-light">Wind: 3</p>
+                    <p class="forecast_humidity card-text text-light">Humidity: 63</p>
+                    
                   </div>
               </div>  
-                <div class="card col-2">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="card-link">Card link</a>
-                        <a href="#" class="card-link">Another link</a>
+                <div class="forecast5 card col-2">
+                    <div class="card-body bg-dark">
+                        <h5 class="forecast_date card-title text-light">9/15/2022</h5>
+                        <img class="img_city" 
+                          id="wicon" 
+                          src=""
+                          alt="weather icon">
+                        </img>  
+                        <p class="forecast_temp card-text text-light">Temp: 63</p>
+                        <p class="forecast_wind card-text text-light">Wind: 3</p>
+                        <p class="forecast_humidity card-text text-light">Humidity: 63</p>
+                        
                       </div>
                   </div>  
               </div>  
