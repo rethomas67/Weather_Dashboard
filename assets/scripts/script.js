@@ -8,8 +8,9 @@ function updateData() {
   var currentHumidity = currentWeatherData.main.humidity;
   var updateIndex = -1;
 
+  console.log("abc" + selectedCity);
   for (var i = 0; i < weatherResult.length; i++) {
-    if (weatherResult[i].city == selectedCity) {
+    if (weatherResult[i].city == selectedCity.trim()) {
       updateIndex = i;
     }
   }
@@ -46,13 +47,17 @@ function updateData() {
       humidity: forecastHumidity,
     });
   }
-
+  console.log(forecastWeatherData);
+  console.log(weatherResult);
+  console.log(updateIndex);
   for (var i = 0; i < forecastResult.length; i++) {
-    weatherResult[updateIndex].forecast[i].date = forecast[i].date;
-    weatherResult[updateIndex].forecast[i].img = forecast[i].img;
-    weatherResult[updateIndex].forecast[i].temp = forecast[i].temp;
-    weatherResult[updateIndex].forecast[i].windspeed = forecast[i].windspeed;
-    weatherResult[updateIndex].forecast[i].humidity = forecast[i].humidity;
+    weatherResult[updateIndex].forecast[i].date = forecastResult[i].date;
+    weatherResult[updateIndex].forecast[i].img = forecastResult[i].img;
+    weatherResult[updateIndex].forecast[i].temp = forecastResult[i].temp;
+    weatherResult[updateIndex].forecast[i].windspeed =
+      forecastResult[i].windspeed;
+    weatherResult[updateIndex].forecast[i].humidity =
+      forecastResult[i].humidity;
   }
 
   weatherResult[updateIndex].longitude = longitude;
@@ -65,8 +70,6 @@ function updateData() {
   weatherResult[updateIndex].currentHumidity = currentHumidity;
 
   forecastResult = [];
-
-  console.log(weatherResult);
 }
 
 function processData() {
@@ -156,6 +159,13 @@ async function getForecastWeather(latitude, longitude) {
   var index = weatherResult.length - 1;
   populateCurrentWeather(index);
   populateForecastWeather(index);
+  var y = JSON.stringify(weatherResult);
+  console.log(y);
+  localStorage.setItem("weatherResultStorage", JSON.stringify(weatherResult));
+  var weatherResultStorage = JSON.parse(
+    localStorage.getItem("weatherResultStorage")
+  );
+  console.log(weatherResultStorage);
   bProcessing = false;
   bUpdate = false;
 }
@@ -331,17 +341,15 @@ function weatherData(event) {
 }
 
 function updateWeatherData(event) {
-  alert("a");
-
   event.preventDefault();
   if (!bProcessing) {
     bProcessing = true;
     bUpdate = true;
     //get the users input using jquery
-    selectedCity = $(this).val();
-    console.log(selectedCity);
+    selectedCity = $(this).text();
+    console.log("abc" + selectedCity.trim());
     //use the geolocation API to retrive longitude and latitude
-    //processAPI();
+    processAPI();
   } else {
     alert("Wait until processing has completed");
   }
@@ -373,6 +381,23 @@ $(".btn_search").on("click", weatherData);
 
 $(".forecasts").children().hide();
 $(".img_city").hide();
+
+var weatherResultStorage = JSON.parse(
+  localStorage.getItem("weatherResultStorage")
+);
+if (weatherResultStorage) {
+  weatherResultStorage.forEach((item) => {
+    weatherResult.push(item);
+    var index = weatherResult.length - 1;
+    populateCurrentWeather(index);
+    populateForecastWeather(index);
+    selectedCity = item.city;
+    updateCityHistory();
+    console.log(selectedCity);
+  });
+  console.log(weatherResult);
+  console.log(weatherResultStorage);
+}
 
 //latitude = geoLocationData.lat;
 //long = GeolocationData.lon;
