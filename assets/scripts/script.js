@@ -13,11 +13,6 @@ function processData() {
   var forecastWind;
   var forecastHumidity;
   var forecastImg;
-  //forecast_date
-  //img_city
-  //forecast_temp
-  //forecast_wind
-  //forecast_humidity
 
   console.log(weatherResult);
 
@@ -57,6 +52,7 @@ function processData() {
     currentHumidity: currentHumidity,
     forecast: forecastResult,
   });
+  forecastResult = [];
   console.log(weatherResult);
 }
 
@@ -81,6 +77,51 @@ async function getForecastWeather(latitude, longitude) {
   processData();
   var index = weatherResult.length - 1;
   populateCurrentWeather(index);
+  populateForecastWeather(index);
+}
+
+function populateForecastWeather(index) {
+  //forecast_date
+  //img_forecast
+  //forecast_temp
+  //forecast_wind
+  //forecast_humidity
+  var forecasts = weatherResult[index].forecast;
+  console.log(index);
+
+  var j;
+  var date;
+  var img;
+  var temp;
+  var wind;
+  var humidity;
+
+  var forecastElement;
+  var forecastClass;
+
+  for (var i = 0; i < forecasts.length; i++) {
+    j = i + 1;
+    forecastClass = "forecast" + j;
+    date = forecasts[i].date;
+    console.log(j);
+    img = "https://openweathermap.org/img/wn/" + forecasts[i].img + ".png";
+    temp = forecasts[i].temp + "\u00B0";
+    wind = forecasts[i].windspeed + " MPH";
+    humidity = forecasts[i].humidity + " %";
+
+    forecastElement = $("." + forecastClass + " .card-body");
+    forecastElement.children(".forecast_date").text(date);
+    forecastElement.children(".img_forecast").attr("src", img);
+    forecastElement.children(".forecast_temp").text(temp);
+    forecastElement.children(".forecast_wind").text(wind);
+    forecastElement.children(".forecast_humidity").text(humidity);
+  }
+  $(".forecasts").children().show();
+  //forecast_date
+  //img_forecast
+  //forecast_temp
+  //forecast_wind
+  //forecast_humidity
 }
 
 function populateCurrentWeather(index) {
@@ -221,7 +262,7 @@ var forecastResult = [];
 
 //click event to process the weather data for the input city
 $(".btn_search").on("click", weatherData);
-$(".forecasts").children().show();
+$(".forecasts").children().hide();
 $(".img_city").hide();
 
 //latitude = geoLocationData.lat;
