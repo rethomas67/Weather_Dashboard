@@ -1,3 +1,7 @@
+function updateData() {
+  alert(selectedCity);
+}
+
 function processData() {
   //forecastResult
   var today = new Date();
@@ -52,7 +56,9 @@ function processData() {
     currentHumidity: currentHumidity,
     forecast: forecastResult,
   });
+
   forecastResult = [];
+
   console.log(weatherResult);
 }
 
@@ -74,10 +80,16 @@ async function getForecastWeather(latitude, longitude) {
     });
   await rslt;
   console.log(forecastWeatherData);
-  processData();
+  //check for another request to the API's
+  if (!bUpdate) {
+    processData();
+  } else {
+    updateData();
+  }
   var index = weatherResult.length - 1;
   populateCurrentWeather(index);
   populateForecastWeather(index);
+  bProcessing = false;
 }
 
 function populateForecastWeather(index) {
@@ -196,50 +208,75 @@ async function getGeoLocationData() {
 }
 
 function updateCityHistory() {
-  var historyElement = `<div
-            class="city_item w-75 mb-3 btn-group d-flex text-center text-light rounded-top rounded-bottom"
-            role="group"
-          >
-            <button
-              class="text-dark btn btn-secondary btn-lg btn-block city_item fw-bold"
-            >
-              
-            </button>
-          </div>
+  /*
+   */
+  //
+  var historyElement = `
+  <div  
+    class="city_item w-75 mb-3 btn-group d-flex text-center text-light rounded-top rounded-bottom"
+    role="group"
+    >
+    
+    <button id="btn_history" 
+        class="text-dark btn btn-secondary btn-lg btn-block fw-bold"
+    >      
+           
+    </button>
+  </div>
     `;
 
   var cities = $(".cities");
-
   cities.append(historyElement);
   var classItem = cities.children(".city_item");
+
   classItem.removeClass("city_item");
   classItem.addClass(selectedCity);
   buttonItem = classItem.children("button");
   buttonItem.text(selectedCity);
+  $("." + selectedCity).on("click", updateWeatherData);
 }
 
 function processAPI() {
-  bDone = false;
   getGeoLocationData();
 
-  //updates search history for the cities
-  updateCityHistory();
-  $(".city_input").val("");
+  //adds to the search history when it's not a request to rerun the API's for the cities
+  if (!bUpdate) {
+    updateCityHistory();
 
-  //latitude = geoLocationData.lat;
-  //console.log(geoLocationData.lat);
-  //longitude = geoLocationData.lon;
-  //getCurrentWeather(latitude, longitude);
-  //console.log(currentWeatherData);
+    $(".city_input").val("");
+  }
 }
 
 function weatherData(event) {
   event.preventDefault();
+  if (!bProcessing) {
+    bProcessing = true;
 
-  //get the users input using jquery
-  selectedCity = $(".city_input").val();
-  //use the geolocation API to retrive longitude and latitude
-  processAPI();
+    bUpdate = false;
+    //get the users input using jquery
+    selectedCity = $(".city_input").val();
+    //use the geolocation API to retrive longitude and latitude
+    processAPI();
+  } else {
+    alert("Wait until processing has completed");
+  }
+}
+
+function updateWeatherData(event) {
+  alert("a");
+
+  event.preventDefault();
+  if (!bProcessing) {
+    bProcessing = true;
+    bUpdate = true;
+    //get the users input using jquery
+    selectedCity = $(this).val();
+    console.log(selectedCity);
+    //use the geolocation API to retrive longitude and latitude
+    //processAPI();
+  } else {
+    alert("Wait until processing has completed");
+  }
 }
 
 //initialize today's date
@@ -260,8 +297,12 @@ var forecastWeatherData;
 var weatherResult = [];
 var forecastResult = [];
 
+var bUpdate = false;
+var bProcessing = false;
+
 //click event to process the weather data for the input city
 $(".btn_search").on("click", weatherData);
+
 $(".forecasts").children().hide();
 $(".img_city").hide();
 
