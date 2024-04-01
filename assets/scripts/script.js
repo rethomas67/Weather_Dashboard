@@ -37,7 +37,6 @@ function updateData() {
   while (idx < 40) {
     //calc for time starting epoch times 1970 gettime in ms date constructor accepts addDays with this param
     nextDay = new Date(nextDay.getTime() + day * msPerDay);
-    console.log(nextDay.toLocaleDateString());
     idx += 8;
     validIdx = idx;
     //never can hit exactly on 5 days
@@ -62,10 +61,6 @@ function updateData() {
 
   //updating 5 days of forecasting data into my array object
   for (var i = 0; i < forecastResult.length; i++) {
-    console.log(weatherResult);
-    console.log(updateIndex);
-    console.log(forecastResult);
-
     weatherResult[updateIndex].forecast[i].date = forecastResult[i].date;
     weatherResult[updateIndex].forecast[i].img = forecastResult[i].img;
     weatherResult[updateIndex].forecast[i].temp = forecastResult[i].temp;
@@ -189,16 +184,11 @@ async function getForecastWeather(latitude, longitude) {
   }
 
   //add the current forecast and the 5 day forecast to the page
-  console.log(index + "idx");
   populateCurrentWeather(index);
   populateForecastWeather(index);
 
   //since we're done add the data to local storage- web pages need a string representation
-  //localStorage.clear();
   localStorage.setItem("weatherResultStorage", JSON.stringify(weatherResult));
-
-  console.log(weatherResult);
-
   //we're clear to make another call to the API's processing is done
   bProcessing = false;
   bUpdate = false;
@@ -286,8 +276,6 @@ async function getCurrentWeather(latitude, longitude) {
       currentWeatherData = data;
       //sometimes the API changes the name of the entered city
       currentWeatherData.name = selectedCity.trim();
-      console.log(selectedCity);
-      console.log(currentWeatherData);
     });
   //wait for the current forecast
   await rslt;
@@ -298,16 +286,11 @@ async function getCurrentWeather(latitude, longitude) {
 //make the function asynchrounous to wait for the data
 async function getGeoLocationData() {
   //the geolocation api url using the dynamic input from the user
-  //console.log(selectedCity);
-  //selectedCity = encodeURIComponent(selectedCity);
-  console.log(selectedCity);
   //url encode for spaces between the city
   var cityUrl =
     "http://api.openweathermap.org/geo/1.0/direct?q=" +
     encodeURIComponent(selectedCity.trim()) +
     "&limit=1&appid=53c5fea2f330bb5e7ac45cffe4100676";
-
-  console.log(cityUrl);
 
   var tempData;
   var rslt = fetch(cityUrl)
@@ -320,9 +303,7 @@ async function getGeoLocationData() {
       geoLocationData = data;
     });
   //continue once there is data
-
   await rslt;
-  console.log(Geolocation);
   latitude = geoLocationData[0].lat;
   longitude = geoLocationData[0].lon;
   getCurrentWeather(latitude, longitude);
@@ -381,7 +362,7 @@ function weatherData(event) {
     bUpdate = false;
     //get the users input using jquery
     selectedCity = $(".city_input").val();
-    //use the geolocation API to retrive longitude and latitude
+    //use the geolocation API to retrieve longitude and latitude
     processAPI();
   } else {
     alert("Wait until processing has completed");
@@ -437,7 +418,6 @@ var weatherResultStorage = JSON.parse(
   localStorage.getItem("weatherResultStorage")
 );
 
-//console.log(localStorage.getItem("weatherResultStorage"));
 if (weatherResultStorage) {
   weatherResultStorage.forEach((item) => {
     weatherResult.push(item);
