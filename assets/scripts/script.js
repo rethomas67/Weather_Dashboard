@@ -288,7 +288,7 @@ async function getGeoLocationData() {
   //the geolocation api url using the dynamic input from the user
   //url encode for spaces between the city
   var cityUrl =
-    "http://api.openweathermap.org/geo/1.0/direct?q=" +
+    "https://api.openweathermap.org/geo/1.0/direct?q=" +
     encodeURIComponent(selectedCity.trim()) +
     "&limit=1&appid=53c5fea2f330bb5e7ac45cffe4100676";
 
@@ -405,8 +405,6 @@ var forecastResult = [];
 
 var bUpdate = false;
 var bProcessing = false;
-
-localStorage.clear();
 
 //click event to process the weather data for the input city
 $(".btn_search").on("click", weatherData);
