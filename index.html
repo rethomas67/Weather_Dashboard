@@ -53,6 +53,7 @@
       <!--set the font weight and size for the text elements of the current forecast with the
         data on the right prortion of the screen
     -->
+    <!--current forecast place holders using Bootstrap-->
       <div class="w-70 text-left">
         <div class="mb-3 p-5 border border-2 border-dark">
             <p class="">
@@ -68,11 +69,12 @@
         <p class="current_windspeed fs-5"></p>
         <p class="current_humidity fs-5"></p>
         </div>
-
+        <!--jquery dynamic HTML here for states processed-->
         <div class="forecasts mb-3 text-left text-dark">
             <p class="fs-4 fw-bold">5-Day Forecast:</p>
         </div>
         
+        <!--using flex for bootstrap cards on the 5 day forecast-->
         <div class="forecasts d-flex flex-row justify-content-between">
             
             <div class="forecast1 card col-2 mr-2">
@@ -149,10 +151,6 @@
         </div>                
       </div>
       
-    </div>
-
-    <div class="row mb-5">
-      <div class="col-4 display-5 fw-bold"></div>
     </div>
 
     <!--Add the Bootstrap script-->
